@@ -5,13 +5,12 @@ import { GasDashboardResponse } from "./api/gasType";
 
 export default async function Home() {
   const get = await fetch("https://gas.prupruapiapp.store/api/gas?weeks=58");
-  const data = (await get.json()) as GasDashboardResponse;
-
   if (!get.ok) {
     throw new Error(
       `Failed to fetch gas data: ${get.status} ${get.statusText}`,
     );
   }
+  const data = (await get.json()) as GasDashboardResponse;
 
   const hddData = data.data.heating;
 
