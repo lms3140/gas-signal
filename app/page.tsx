@@ -4,13 +4,7 @@ import { WeeklyHddStatsCard } from "./_components/WeeklyHddStatsCard";
 import { GasDashboardResponse } from "./api/gasType";
 
 export default async function Home() {
-  const gasApiBaseUrl = process.env.GAS_API_BASE_URL;
-
-  if (!gasApiBaseUrl) {
-    throw new Error("GAS_API_BASE_URL is not defined");
-  }
-
-  const get = await fetch(`${gasApiBaseUrl}/api/gas?weeks=58`);
+  const get = await fetch("https://gas.prupruapiapp.store/api/gas?weeks=58");
   const data = (await get.json()) as GasDashboardResponse;
 
   if (!get.ok) {
