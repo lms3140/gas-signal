@@ -13,6 +13,12 @@ export default async function Home() {
   const get = await fetch(`${gasApiBaseUrl}/api/gas?weeks=58`);
   const data = (await get.json()) as GasDashboardResponse;
 
+  if (!get.ok) {
+    throw new Error(
+      `Failed to fetch gas data: ${get.status} ${get.statusText}`,
+    );
+  }
+
   const hddData = data.data.heating;
 
   return (
