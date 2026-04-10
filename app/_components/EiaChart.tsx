@@ -36,7 +36,13 @@ export function EiaChart({ data }: EiaChartProps) {
       </div>
 
       <div className="h-80 w-full">
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer
+          minHeight={0}
+          minWidth={0}
+          width="100%"
+          height="100%"
+          initialDimension={{ width: 1, height: 1 }}
+        >
           <LineChart
             data={chartData}
             margin={{ top: 8, right: 8, left: -12, bottom: 8 }}
