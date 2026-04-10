@@ -4,7 +4,13 @@ import { WeeklyHddStatsCard } from "./_components/WeeklyHddStatsCard";
 import { GasDashboardResponse } from "./api/gasType";
 
 export default async function Home() {
-  const get = await fetch(`http://localhost:3005/api/gas?weeks=58`);
+  const gasApiBaseUrl = process.env.GAS_API_BASE_URL;
+
+  if (!gasApiBaseUrl) {
+    throw new Error("GAS_API_BASE_URL is not defined");
+  }
+
+  const get = await fetch(`${gasApiBaseUrl}/api/gas?weeks=58`);
   const data = (await get.json()) as GasDashboardResponse;
 
   const hddData = data.data.heating;
