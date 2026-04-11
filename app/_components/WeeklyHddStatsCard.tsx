@@ -37,7 +37,7 @@ function describeDeviation(value: number, baseline: string) {
   return `${baseline}와 비슷한 수준`;
 }
 
-export function WeeklyHddStatsCard({ data, symbol }: WeeklyHddStatsCardProps) {
+export function WeeklyHddStatsCard({ data }: WeeklyHddStatsCardProps) {
   const metrics = [
     {
       label: "이번 주 HDD",
@@ -64,9 +64,7 @@ export function WeeklyHddStatsCard({ data, symbol }: WeeklyHddStatsCardProps) {
       <div className="mb-4 flex items-start justify-between gap-4">
         <div>
           <h2 className="text-lg font-semibold text-black">HDD 요약</h2>
-          <p className="text-sm text-black/60">
-            {symbol ? `${symbol} 참고 지표` : "가스 난방 수요 참고 지표"}
-          </p>
+          <p className="text-sm text-black/60">가스 난방 수요 참고 지표</p>
         </div>
 
         <div className="text-right text-xs text-black/50">
