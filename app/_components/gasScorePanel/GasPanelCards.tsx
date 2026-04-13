@@ -1,58 +1,61 @@
-import { CalculateGasScoreParams } from "@/app/_components/gasScorePanel/libs/gasScore";
+import { GasPanelMetrics } from "@/app/_components/GasDashboard";
 
 type MetricCard = {
   label: string;
   description: string;
-  value: number;
+  value: string;
 };
 
-function formatSignedNumber(value: number, digits = 0) {
-  const formatted = value.toLocaleString(undefined, {
+function formatNumber(value: number) {
+  const digits = Number.isInteger(value) ? 0 : 1;
+
+  return value.toLocaleString(undefined, {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   });
+}
 
+function formatSignedNumber(value: number) {
+  const formatted = formatNumber(value);
   return value > 0 ? `+${formatted}` : formatted;
 }
 
-function buildMetricCards(values: CalculateGasScoreParams): MetricCard[] {
+function withUnit(value: string, unit: string) {
+  return unit ? `${value} ${unit}` : value;
+}
+
+function buildMetricCards(values: GasPanelMetrics): MetricCard[] {
   return [
     {
-      label: "평년 대비 HDD 차이",
-      description: "양수면 평년보다 더 추워 수요가 강한 상태입니다.",
-      value: values.devFromNorm,
-    },
-    {
-      label: "전년 대비 HDD 차이",
-      description: "양수면 전년보다 더 추워진 흐름입니다.",
-      value: values.devFromLastYear,
+      label: "HDD 평년 대비",
+      description: "기준 주간 HDD가 평년과 얼마나 차이 나는지 보여줍니다.",
+      value: formatSignedNumber(values.devFromNorm),
     },
     {
       label: "현재 저장량",
-      description: "가장 최근 발표된 천연가스 재고입니다.",
-      value: values.currentStorage,
+      description: "가장 최근 발표된 천연가스 저장량입니다.",
+      value: withUnit(formatNumber(values.currentStorage), values.storageUnit),
     },
     {
-      label: "시즌 평균 저장량",
-      description: "현재 데이터 구간의 평균 저장량입니다.",
-      value: values.seasonalAverageStorage,
-    },
-    {
-      label: "최근 저장량 변화",
-      description: "설정된 비교 주수 기준 저장량 증감입니다.",
-      value: values.recentStorageChange,
+      label: "전주 대비 저장량 변화",
+      description: "직전 주와 비교한 저장량 차이입니다.",
+      value: withUnit(
+        formatSignedNumber(values.recentStorageChange),
+        values.storageUnit,
+      ),
     },
   ];
 }
 
 type GasPanelCardsProps = {
-  values: CalculateGasScoreParams;
+  values: GasPanelMetrics;
 };
 
 export function GasPanelCards({ values }: GasPanelCardsProps) {
   const metricCards = buildMetricCards(values);
+
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
       {metricCards.map((metric) => (
         <div
           key={metric.label}
@@ -61,7 +64,7 @@ export function GasPanelCards({ values }: GasPanelCardsProps) {
           <p className="text-sm font-medium text-black">{metric.label}</p>
           <p className="mt-1 text-xs text-black/55">{metric.description}</p>
           <p className="mt-3 text-2xl font-semibold text-black">
-            {formatSignedNumber(metric.value, metric.value % 1 === 0 ? 0 : 1)}
+            {metric.value}
           </p>
         </div>
       ))}

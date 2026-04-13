@@ -88,6 +88,12 @@ export function WeeklyHddStatsCard({ data }: WeeklyHddStatsCardProps) {
           </div>
         ))}
       </div>
+      <div>
+        <p className="text-sm text-black/60">
+          * HDD는 65°F(화씨)를 기준으로 추울수록 커지는 난방 수요 지표입니다.
+          예) 평균기온이 55°F면 HDD는 10입니다.
+        </p>
+      </div>
     </section>
   );
 }

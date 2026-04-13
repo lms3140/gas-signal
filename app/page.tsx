@@ -1,5 +1,5 @@
 import { EiaChart } from "./_components/EiaChart";
-import { GasScorePanel } from "./_components/GasScorePanel";
+import { GasDashboard } from "./_components/GasDashboard";
 import { WeeklyHddStatsCard } from "./_components/WeeklyHddStatsCard";
 import { GasDashboardResponse } from "./api/gasType";
 
@@ -35,10 +35,10 @@ export default async function Home() {
 
   const hddData = data.heating;
   return (
-    <main className="mx-auto flex flex-col gap-2 min-h-screen max-w-5xl min-w-2xl p-6">
+    <main className="mx-auto flex flex-col gap-2 min-h-fit max-w-5xl min-w-xs p-6 mb-2">
       <EiaChart data={data.storage} />
       <WeeklyHddStatsCard data={hddData} />
-      <GasScorePanel data={data} />
+      <GasDashboard data={data} />
     </main>
   );
 }
