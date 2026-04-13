@@ -32,10 +32,10 @@ export function EiaChart({ data }: EiaChartProps) {
     <div className="w-full rounded-xl border border-black/10 bg-white p-4 shadow-sm">
       <div className="mb-3">
         <h2 className="text-lg text-black font-semibold">천연가스 저장량</h2>
-        <p className="text-sm text-black/60">Recent weekly values</p>
+        <p className="text-sm text-black/60">최근 1년 주간 저장량</p>
       </div>
 
-      <div className="h-80 w-full">
+      <div className="h-64 w-full">
         <ResponsiveContainer
           minHeight={0}
           minWidth={0}
