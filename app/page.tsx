@@ -5,7 +5,7 @@ import { GasDashboardResponse } from "./api/gasType";
 
 const getGasData = async () => {
   try {
-    const res = await fetch("https://gas.prupruapiapp.store/api/gas?weeks=58", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/gas?weeks=58`, {
       cache: "no-store",
     });
     if (!res.ok) {
